@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7 Meses de Nós | Outra Vida</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ocean: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        sunset: {
+                            amber: '#f59e0b',
+                            rose: '#f43f5e',
+                            gold: '#fbbf24',
+                            warm: '#fdba74',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        handwriting: ['"Caveat"', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .bg-sunset-gradient {
+            background: linear-gradient(180deg, #1e1b4b 0%, #31103f 25%, #701a75 50%, #9a3412 75%, #0c4a6e 100%);
+            background-size: 100% 200%;
+            animation: gradientShift 15s ease infinite alternate;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 0% 100%; }
+        }
+
+        @keyframes beeFly {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(30px, -20px) rotate(5deg); }
+            50% { transform: translate(10px, -40px) rotate(-5deg); }
+            75% { transform: translate(-20px, -15px) rotate(3deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        .animate-bee {
+            animation: beeFly 6s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .animate-twinkle {
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        .glow-gold {
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.4);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #f59e0b;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-amber-500 selection:text-slate-950 min-h-screen relative overflow-x-hidden">
+
+    <!-- Sky Canvas Particles -->
+    <canvas id="skyCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+    <!-- Áudio Principal (Versão Ao Vivo) -->
+    <audio id="mainAudio" preload="auto">
+        <source src="outra-vida.mp3">
+    </audio>
+
+    <!-- Main Container -->
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+        <!-- HEADER / HERO SECTION -->
+        <header class="relative min-h-screen flex flex-col items-center justify-center text-center px-4 py-16 overflow-hidden">
+            
+            <!-- Floating Decorative Elements -->
+            <div class="absolute top-12 left-10 text-amber-300 opacity-80 animate-bee pointer-events-none">
+                <i data-lucide="bee" class="w-10 h-10 filter drop-shadow-[0_0_8px_rgba(251,191,36,0.8)]"></i>
+            </div>
+            <div class="absolute top-1/4 right-12 text-amber-200 animate-twinkle pointer-events-none" style="animation-delay: 1s;">
+                <i data-lucide="sparkles" class="w-8 h-8"></i>
+            </div>
+            <div class="absolute bottom-1/3 left-1/4 text-amber-400/50 animate-twinkle pointer-events-none" style="animation-delay: 2s;">
+                <i data-lucide="star" class="w-6 h-6 fill-amber-400"></i>
+            </div>
+
+            <!-- Header Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-sm font-medium mb-6 backdrop-blur-md animate-bounce">
+                <i data-lucide="heart" class="w-4 h-4 fill-amber-400 text-amber-400"></i>
+                <span>7 Meses de Nós & Trilha Sonora da Nossa Vida</span>
+            </div>
+
+            <!-- Title -->
+            <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-rose-200 to-amber-400 max-w-4xl leading-tight drop-shadow-lg">
+                "Você ainda vai ser a minha vida..."
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="mt-6 text-lg sm:text-xl md:text-2xl text-slate-300 max-w-2xl font-light leading-relaxed">
+                Armandinho — <i>Outra Vida</i>. A canção especial que cantei para você. Toque no player abaixo para ouvir e acompanhar nossa história.
+            </p>
+
+            <!-- Real-time Counter Card -->
+            <div class="mt-10 p-6 sm:p-8 rounded-3xl bg-slate-900/60 border border-amber-500/20 backdrop-blur-xl glow-gold max-w-3xl w-full">
+                <h3 class="font-handwriting text-2xl sm:text-3xl text-amber-300 mb-4">
+                    Já se passaram exatamente desde o nosso primeiro encontro:
+                </h3>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="countdown">
+                    <div class="p-3 bg-slate-800/50 rounded-2xl border border-white/5">
+                        <span id="days" class="block text-3xl sm:text-4xl font-bold text-amber-400">213</span>
+                        <span class="text-xs uppercase tracking-wider text-slate-400">Dias</span>
+                    </div>
+                    <div class="p-3 bg-slate-800/50 rounded-2xl border border-white/5">
+                        <span id="hours" class="block text-3xl sm:text-4xl font-bold text-rose-400">00</span>
+                        <span class="text-xs uppercase tracking-wider text-slate-400">Horas</span>
+                    </div>
+                    <div class="p-3 bg-slate-800/50 rounded-2xl border border-white/5">
+                        <span id="minutes" class="block text-3xl sm:text-4xl font-bold text-amber-300">00</span>
+                        <span class="text-xs uppercase tracking-wider text-slate-400">Minutos</span>
+                    </div>
+                    <div class="p-3 bg-slate-800/50 rounded-2xl border border-white/5">
+                        <span id="seconds" class="block text-3xl sm:text-4xl font-bold text-emerald-400">00</span>
+                        <span class="text-xs uppercase tracking-wider text-slate-400">Segundos</span>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-400 mt-4 italic">...e cada segundo me dá mais certeza do nosso futuro juntos.</p>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <a href="#musica" class="mt-12 flex flex-col items-center text-slate-400 hover:text-amber-300 transition-colors group">
+                <span class="text-xs tracking-widest uppercase mb-2 font-light">Tocar & Explorar Trechos</span>
+                <i data-lucide="chevron-down" class="w-6 h-6 animate-bounce text-amber-400"></i>
+            </a>
+        </header>
+
+        <!-- SECTION 2: AUDIO PLAYER & INTERACTIVE SNIPPETS -->
+        <section id="musica" class="py-20 px-4 max-w-6xl mx-auto w-full">
+            
+            <div class="text-center mb-12">
+                <span class="text-amber-400 font-handwriting text-3xl sm:text-4xl block mb-2">Armandinho — Outra Vida (Ao Vivo)</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-slate-100">Ouça os Trechos Mais Marcantes</h2>
+                <p class="text-slate-400 mt-3 max-w-xl mx-auto">Clique em qualquer um dos 5 botões abaixo para pular direto para aquele momento da música ao vivo!</p>
+            </div>
+
+            <!-- PLAYER CENTRAL -->
+            <div class="mb-12 p-6 rounded-3xl bg-slate-900/80 border border-amber-500/30 backdrop-blur-xl max-w-xl mx-auto text-center glow-gold">
+                <div class="flex items-center justify-center gap-4 mb-4">
+                    <button onclick="toggleMainAudio()" id="playBtn" class="w-16 h-16 rounded-full bg-gradient-to-r from-amber-500 to-rose-500 text-slate-950 flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer">
+                        <i id="playIcon" data-lucide="play" class="w-8 h-8 fill-slate-950 ml-1"></i>
+                        <i id="pauseIcon" data-lucide="pause" class="w-8 h-8 fill-slate-950 hidden"></i>
+                    </button>
+                    <div class="text-left">
+                        <h3 class="font-serif text-lg font-bold text-slate-100" id="nowPlayingTitle">Outra Vida (Ao Vivo)</h3>
+                        <p class="text-xs text-amber-300 font-handwriting text-base" id="nowPlayingLyric">Clique abaixo em um trecho ou dê o play</p>
+                    </div>
+                </div>
+                <!-- Barra de progresso visual -->
+                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden mt-4 cursor-pointer" onclick="seekAudio(event)">
+                    <div id="audioProgressBar" class="bg-gradient-to-r from-amber-400 to-rose-500 h-full w-0 transition-all duration-300"></div>
+                </div>
+                <div class="flex justify-between text-xs text-slate-500 mt-2">
+                    <span id="currentTime">0:00</span>
+                    <span id="durationTime">--:--</span>
+                </div>
+            </div>
+
+            <!-- Interactive Lyric Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Card 1: Fugir pro Mar -->
+                <div onclick="playSnippet(15, 'Fugir pro Mar', 'Eu vou pedir pra namorar, você vai me dizer que vai pensar... ❤️')" class="group cursor-pointer p-6 rounded-3xl bg-slate-900/40 border border-amber-500/20 hover:border-amber-400 transition-all duration-300 hover:scale-[1.02] backdrop-blur-md relative overflow-hidden">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-500/20 flex items-center justify-center text-amber-400 group-hover:rotate-12 transition-transform">
+                            <i data-lucide="waves" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-100">1. Fugir pro Mar</h3>
+                            <span class="text-xs text-amber-300 uppercase tracking-widest font-semibold">0:15 no áudio</span>
+                        </div>
+                    </div>
+                    <blockquote class="font-serif text-sm text-amber-200 italic border-l-2 border-amber-400 pl-3 py-1 mt-2">
+                        "Então a gente vai fugir pro mar, eu vou pedir pra namorar..."
+                    </blockquote>
+                </div>
+
+                <!-- Card 2: Sem Mentiras -->
+                <div onclick="playSnippet(35, 'Amor Sem Mentiras', 'Sem ter mais mentiras pra me ver, sem amor antigo pra esquecer... ✨')" class="group cursor-pointer p-6 rounded-3xl bg-slate-900/40 border border-purple-500/20 hover:border-purple-400 transition-all duration-300 hover:scale-[1.02] backdrop-blur-md relative overflow-hidden">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center text-purple-300 group-hover:rotate-12 transition-transform">
+                            <i data-lucide="shield-check" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-100">2. Amor Sem Mentiras</h3>
+                            <span class="text-xs text-purple-300 uppercase tracking-widest font-semibold">0:35 no áudio</span>
+                        </div>
+                    </div>
+                    <blockquote class="font-serif text-sm text-purple-200 italic border-l-2 border-purple-400 pl-3 py-1 mt-2">
+                        "Sem ter mais mentiras pra me ver, sem amor antigo pra esquecer..."
+                    </blockquote>
+                </div>
+
+                <!-- Card 3: Pescador Sonhador -->
+                <div onclick="playSnippet(58, 'Pescador Sonhador', 'Vou dizer pra Deus nosso Senhor que tu és o amor da minha vida! 🎣❤️')" class="group cursor-pointer p-6 rounded-3xl bg-slate-900/40 border border-rose-500/20 hover:border-rose-400 transition-all duration-300 hover:scale-[1.02] backdrop-blur-md relative overflow-hidden">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 rounded-2xl bg-rose-500/20 flex items-center justify-center text-rose-300 group-hover:rotate-12 transition-transform">
+                            <i data-lucide="heart-handshake" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-100">3. Pescador Sonhador</h3>
+                            <span class="text-xs text-rose-300 uppercase tracking-widest font-semibold">0:58 no áudio</span>
+                        </div>
+                    </div>
+                    <blockquote class="font-serif text-sm text-rose-200 italic border-l-2 border-rose-400 pl-3 py-1 mt-2">
+                        "Sou pescador, sonhador... Vou dizer pra Deus nosso Senhor..."
+                    </blockquote>
+                </div>
+
+                <!-- Card 4: A Abelhinha -->
+                <div onclick="playSnippet(85, 'A Abelhinha e o Mel', 'E uma abelhinha vai fazer o mel, Estrela d\'Alva vai pintar no céu... 🐝⭐️')" class="group cursor-pointer p-6 rounded-3xl bg-slate-900/40 border border-amber-500/20 hover:border-amber-400 transition-all duration-300 hover:scale-[1.02] backdrop-blur-md relative overflow-hidden">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-500/20 flex items-center justify-center text-amber-400 group-hover:rotate-12 transition-transform">
+                            <i data-lucide="bee" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-100">4. A Abelhinha & Estrela d'Alva</h3>
+                            <span class="text-xs text-amber-300 uppercase tracking-widest font-semibold">1:25 no áudio</span>
+                        </div>
+                    </div>
+                    <blockquote class="font-serif text-sm text-amber-200 italic border-l-2 border-amber-400 pl-3 py-1 mt-2">
+                        "E uma abelhinha vai fazer o mel, Estrela d'Alva vai pintar no céu..."
+                    </blockquote>
+                </div>
+
+                <!-- Card 5: Positividade & Futuro -->
+                <div onclick="playSnippet(170, 'Positividade & Futuro', 'Aqui no pensamento, na positividade... pode crer que tudo vai dar certo! ☀️🌊')" class="group cursor-pointer p-6 rounded-3xl bg-slate-900/40 border border-emerald-500/20 hover:border-emerald-400 transition-all duration-300 hover:scale-[1.02] backdrop-blur-md relative overflow-hidden lg:col-span-2">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-emerald-300 group-hover:rotate-12 transition-transform">
+                            <i data-lucide="sun" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-100">5. Positividade & A Certeza do Futuro</h3>
+                            <span class="text-xs text-emerald-300 uppercase tracking-widest font-semibold">2:50 no áudio</span>
+                        </div>
+                    </div>
+                    <blockquote class="font-serif text-sm text-emerald-200 italic border-l-2 border-emerald-400 pl-3 py-1 mt-2">
+                        "Aqui no pensamento, na positividade, no pensar que vai nos guiar: pode crer que tudo vai dar certo!"
+                    </blockquote>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3: 7 MONTHS TIMELINE -->
+        <section class="py-20 px-4 max-w-5xl mx-auto w-full">
+            <div class="text-center mb-16">
+                <span class="text-rose-400 font-handwriting text-3xl sm:text-4xl block mb-2">Nossa Jornada</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-slate-100">7 Meses em 7 Memórias</h2>
+                <p class="text-slate-400 mt-3">Relembrando pedacinhos do nosso carinho mês a mês.</p>
+            </div>
+
+            <!-- Grid of 7 Letters -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                
+                <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-amber-500/50 transition-all">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-amber-400 font-bold text-lg">Mês 1</span>
+                        <i data-lucide="compass" class="w-5 h-5 text-amber-400"></i>
+                    </div>
+                    <h4 class="font-serif text-lg font-semibold text-slate-200">O Primeiro Encontro</h4>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+                        A emoção e aquele friozinho na barriga quando cantei essa música do Armandinho pra você.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-amber-500/50 transition-all">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-amber-400 font-bold text-lg">Mês 2</span>
+                        <i data-lucide="smile" class="w-5 h-5 text-amber-400"></i>
+                    </div>
+                    <h4 class="font-serif text-lg font-semibold text-slate-200">Risos & Sintonia</h4>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+                        Perceber que as conversas duravam horas e o tempo parecia voar no seu abraço.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-amber-500/50 transition-all">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-amber-400 font-bold text-lg">Mês 3</span>
+                        <i data-lucide="sun" class="w-5 h-5 text-amber-400"></i>
+                    </div>
+                    <h4 class="font-serif text-lg font-semibold text-slate-200">A Certeza No Coração</h4>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+                        Quando eu entendi que você não era só alguém especial, mas sim quem eu queria ao meu lado.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-amber-500/50 transition-all">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-amber-400 font-bold text-lg">Mês 4</span>
+                        <i data-lucide="shield-check" class="w-5 h-5 text-amber-400"></i>
+                    </div>
+                    <h4 class="font-serif text-lg font-semibold text-slate-200">Cuidado & Doçura</h4>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+                        Como a abelhinha trazendo o mel, você trouxe leveza e calma pra toda a minha rotina.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-amber-500/50 transition-all">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-amber-400 font-bold text-lg">Mês 5</span>
+                        <i data-lucide="sparkles" class="w-5 h-5 text-amber-400"></i>
+                    </div>
+                    <h4 class="font-serif text-lg font-semibold text-slate-200">Sonhos de Futuro</h4>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+                        Planejar nossas próximas viagens, viagens pro mar e os dias abençoados que virão.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-amber-500/50 transition-all">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-amber-400 font-bold text-lg">Mês 6</span>
+                        <i data-lucide="anchor" class="w-5 h-5 text-amber-400"></i>
+                    </div>
+                    <h4 class="font-serif text-lg font-semibold text-slate-200">O Vento Certo no Mar</h4>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+                        A tranquilidade de sentir que tudo se encaixa da forma mais bonita e sincera.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-gradient-to-br from-amber-500/20 to-rose-500/20 border border-amber-400/40 md:col-span-3 sm:col-span-2">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-amber-300 font-bold text-xl">Mês 7 — Hoje</span>
+                        <i data-lucide="heart" class="w-6 h-6 text-rose-400 fill-rose-400 animate-pulse"></i>
+                    </div>
+                    <h4 class="font-serif text-xl font-bold text-slate-100">7 Meses de Amor</h4>
+                    <p class="text-slate-200 text-sm mt-2 leading-relaxed">
+                        Completamos 7 meses. Cada dia reafirma que você é a minha futura namorada e a futura mulher da minha vida.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 4: FINAL SURPRISE BUTTON -->
+        <section class="py-24 px-4 text-center relative overflow-hidden">
+            <div class="max-w-3xl mx-auto relative z-10">
+                <span class="text-amber-400 font-handwriting text-3xl block mb-2">Uma promessa pra nós</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-slate-100 mb-6">
+                    Pode Crer Que Tudo Vai Dar Certo?
+                </h2>
+                <p class="text-slate-300 mb-10 max-w-xl mx-auto text-base sm:text-lg">
+                    Clique no botão para selar esses 7 meses e acender as estrelas do nosso caminho.
+                </p>
+
+                <button onclick="launchSurprise()" class="group relative inline-flex items-center gap-3 px-8 py-5 rounded-full bg-gradient-to-r from-amber-500 via-rose-500 to-amber-500 text-slate-950 font-bold text-lg sm:text-xl shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 glow-gold cursor-pointer">
+                    <i data-lucide="sparkles" class="w-6 h-6 text-slate-950 group-hover:rotate-45 transition-transform"></i>
+                    <span>Pode Crer! (Selar Nosso Amor)</span>
+                    <i data-lucide="heart" class="w-6 h-6 text-slate-950 fill-slate-950"></i>
+                </button>
+            </div>
+
+            <!-- Surpresa Modal -->
+            <div id="surpriseModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-500">
+                <div class="bg-slate-900 border border-amber-500/40 p-8 sm:p-12 rounded-3xl max-w-2xl w-full text-center relative glow-gold transform scale-90 transition-transform duration-500" id="modalContent">
+                    
+                    <button onclick="closeSurprise()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-100">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+
+                    <div class="w-16 h-16 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="heart" class="w-8 h-8 fill-amber-400"></i>
+                    </div>
+
+                    <h3 class="font-serif text-3xl sm:text-4xl font-bold text-amber-300 mb-4">
+                        Para a Minha Futura Namorada...
+                    </h3>
+
+                    <p class="text-slate-200 text-base sm:text-lg leading-relaxed mb-6 font-light">
+                        Estes 7 meses foram só o começo de uma linda história que quero construir com você. Obrigado por ser minha abelhinha, minha estrela guia e o amor da minha vida.<br><br>
+                        <strong class="text-amber-400 font-serif text-xl">Pode crer que tudo já deu certo! Te amo! ❤️</strong>
+                    </p>
+
+                    <button onclick="closeSurprise()" class="px-6 py-3 rounded-full bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 transition-colors cursor-pointer">
+                        Guardar no Coração ❤️
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="py-8 text-center text-xs text-slate-500 border-t border-slate-900">
+            <p>Criado com amor para celebrar 7 meses de uma vida inteira.</p>
+            <p class="mt-1 text-slate-600">"Tu és o amor da minha vida..."</p>
+        </footer>
+
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+
+        // 1. Contador em Tempo Real (7 Meses)
+        const startDate = new Date();
+        startDate.setMonth(startDate.getMonth() - 7);
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+            document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // 2. Audio Controller
+        const mainAudio = document.getElementById('mainAudio');
+        const playIcon = document.getElementById('playIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
+        const nowPlayingTitle = document.getElementById('nowPlayingTitle');
+        const nowPlayingLyric = document.getElementById('nowPlayingLyric');
+        const audioProgressBar = document.getElementById('audioProgressBar');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationTimeEl = document.getElementById('durationTime');
+
+        function updatePlayState(isPlaying) {
+            if (isPlaying) {
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+            } else {
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+            }
+        }
+
+        function toggleMainAudio() {
+            if (mainAudio.paused) {
+                mainAudio.play().then(() => {
+                    updatePlayState(true);
+                }).catch(err => {
+                    console.log("Aguardando interação do usuário ou erro ao tocar:", err);
+                });
+            } else {
+                mainAudio.pause();
+                updatePlayState(false);
+            }
+        }
+
+        // Eventos nativos do áudio para atualizar os ícones com precisão
+        mainAudio.addEventListener('play', () => updatePlayState(true));
+        mainAudio.addEventListener('pause', () => updatePlayState(false));
+        mainAudio.addEventListener('ended', () => updatePlayState(false));
+
+        function playSnippet(seconds, title, lyric) {
+            nowPlayingTitle.innerText = title;
+            nowPlayingLyric.innerText = lyric;
+
+            const startPlayback = () => {
+                mainAudio.currentTime = seconds;
+                mainAudio.play().then(() => {
+                    updatePlayState(true);
+                }).catch(err => console.log("Erro no áudio:", err));
+            };
+
+            // Se o áudio ainda não carregou os metadados (como a duração total)
+            if (mainAudio.readyState < 1) {
+                mainAudio.addEventListener('loadedmetadata', startPlayback, { once: true });
+                mainAudio.load();
+            } else {
+                startPlayback();
+            }
+
+            // Efeito visual de confete
+            confetti({
+                particleCount: 30,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#fbbf24', '#f43f5e', '#38bdf8']
+            });
+        }
+
+        // Atualizar barra de progresso do áudio
+        mainAudio.addEventListener('timeupdate', () => {
+            if (mainAudio.duration) {
+                const pct = (mainAudio.currentTime / mainAudio.duration) * 100;
+                audioProgressBar.style.width = pct + '%';
+
+                const curMins = Math.floor(mainAudio.currentTime / 60);
+                const curSecs = Math.floor(mainAudio.currentTime % 60);
+                currentTimeEl.innerText = `${curMins}:${curSecs < 10 ? '0' : ''}${curSecs}`;
+
+                const durMins = Math.floor(mainAudio.duration / 60);
+                const durSecs = Math.floor(mainAudio.duration % 60);
+                durationTimeEl.innerText = `${durMins}:${durSecs < 10 ? '0' : ''}${durSecs}`;
+            }
+        });
+
+        function seekAudio(e) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const clickPosition = (e.clientX - rect.left) / rect.width;
+            if (mainAudio.duration) {
+                mainAudio.currentTime = clickPosition * mainAudio.duration;
+            }
+        }
+
+        // 3. Efeitos de Confetti & Modal de Surpresa
+        function launchSurprise() {
+            var duration = 4 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 999 };
+
+            function randomInRange(min, max) {
+              return Math.random() * (max - min) + min;
+            }
+
+            var interval = setInterval(function() {
+              var timeLeft = animationEnd - Date.now();
+
+              if (timeLeft <= 0) {
+                return clearInterval(interval);
+              }
+
+              var particleCount = 50 * (timeLeft / duration);
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+
+            const modal = document.getElementById('surpriseModal');
+            const content = document.getElementById('modalContent');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-90');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeSurprise() {
+            const modal = document.getElementById('surpriseModal');
+            const content = document.getElementById('modalContent');
+            modal.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-90');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 500);
+        }
+
+        // 4. Estrelas animadas no fundo
+        const canvas = document.getElementById('skyCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let stars = [];
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            createStars();
+        }
+
+        function createStars() {
+            stars = [];
+            const count = Math.floor((width * height) / 8000);
+            for (let i = 0; i < count; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 1.5 + 0.5,
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.02 + 0.005
+                });
+            }
+        }
+
+        function animateStars() {
+            ctx.clearRect(0, 0, width, height);
+
+            stars.forEach(star => {
+                star.alpha += star.speed;
+                if (star.alpha > 1 || star.alpha < 0) {
+                    star.speed = -star.speed;
+                }
+
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(251, 191, 36, ${Math.abs(star.alpha)})`;
+                ctx.fill();
+            });
+
+            requestAnimationFrame(animateStars);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        animateStars();
+    </script>
+</body>
+</html>
